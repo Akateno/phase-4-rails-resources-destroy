@@ -44,6 +44,17 @@ class BirdsController < ApplicationController
     end
   end
 
+  def destroy 
+    bird = Bird.find_by(id: params[:id])
+    if bird
+      bird.destroy
+      head :no_content
+    else 
+      render json {error: "Bird not found"}, status: :not_found 
+    end 
+  end 
+  #sidenote: if the API doesnt return JSON data and you try to read the response through fetch you will get an erro
+
   private
 
   def bird_params
